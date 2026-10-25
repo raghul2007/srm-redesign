@@ -1,0 +1,18 @@
+{
+  "language": "en",
+  "translationStatus": "reviewed",
+  "translatedOn": "2026-10-25",
+  "strings": {
+    "admissions.title": "Admissions journey",
+    "admissions.intro": "Follow these five steps. Applications are made only on the official SRMIST portals.",
+    "admissions.portals": "Official application portals",
+    "admissions.india": "Apply from India",
+    "admissions.international": "Apply as an international student",
+    "admissions.faq": "Common questions",
+    "contact.title": "Contact",
+    "contact.intro": "Call the admissions line for your programme group.",
+    "contact.phones": "Admissions phone lines",
+    "contact.campuses": "Campuses",
+    "contact.main": "Main lines"
+  }
+}

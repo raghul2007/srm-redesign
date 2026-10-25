@@ -1,0 +1,84 @@
+{
+  "_schema": "Every record: status ('verified'|'placeholder'), source (URL), lastVerified (ISO date). 'verified' values come from the project's verified seed and must be re-checked on the official site before launch.",
+  "phones": [
+    {
+      "id": "phone-eng",
+      "label": "Admissions: Engineering, Agriculture, Architecture",
+      "value": "+91 70 2645 2645",
+      "href": "tel:+917026452645",
+      "groups": ["Engineering", "Agriculture", "Architecture"],
+      "status": "verified",
+      "source": "https://www.srmist.edu.in/admissions/",
+      "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "phone-other",
+      "label": "Admissions: Liberal Arts & Business Studies, Law, Management, Medical & Allied Health, Hotel Management",
+      "value": "+91 70 2647 2647",
+      "href": "tel:+917026472647",
+      "groups": ["Liberal Arts & Business Studies", "Law", "Management", "Medical & Allied Health", "Hotel Management"],
+      "status": "verified",
+      "source": "https://www.srmist.edu.in/admissions/",
+      "lastVerified": "2026-10-25"
+    }
+  ],
+  "mainLines": [
+    { "id": "main-1", "label": "Main line", "value": "+91-44-27417000", "href": "tel:+914427417000", "status": "verified", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "main-2", "label": "Main line", "value": "+91-44-27417777", "href": "tel:+914427417777", "status": "verified", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" }
+  ],
+  "portals": [
+    { "id": "portal-india", "label": "India application portal", "value": "applications.srmist.edu.in", "href": "https://applications.srmist.edu.in/", "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25" },
+    { "id": "portal-intl", "label": "International application portal", "value": "intlapplications.srmist.edu.in", "href": "https://intlapplications.srmist.edu.in/", "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25" }
+  ],
+  "pages": [
+    { "id": "page-admissions", "label": "Admissions overview", "value": "srmist.edu.in/admissions", "href": "https://www.srmist.edu.in/admissions/", "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25" },
+    { "id": "page-india", "label": "Admissions: India", "value": "srmist.edu.in/admission-india", "href": "https://www.srmist.edu.in/admission-india/", "status": "verified", "source": "https://www.srmist.edu.in/admission-india/", "lastVerified": "2026-10-25" },
+    { "id": "page-intl", "label": "Admissions: International", "value": "srmist.edu.in/admission-international", "href": "https://www.srmist.edu.in/admission-international/", "status": "verified", "source": "https://www.srmist.edu.in/admission-international/", "lastVerified": "2026-10-25" },
+    { "id": "page-scholarships", "label": "Scholarships (India, Engineering)", "value": "srmist.edu.in/admission-india/engineering/scholarships", "href": "https://www.srmist.edu.in/admission-india/engineering/scholarships/", "status": "verified", "source": "https://www.srmist.edu.in/admission-india/engineering/scholarships/", "lastVerified": "2026-10-25" },
+    { "id": "page-finder", "label": "Official programme finder", "value": "srmist.edu.in/program-finder", "href": "https://www.srmist.edu.in/program-finder/", "status": "verified", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25" }
+  ],
+  "campuses": [
+    { "id": "kattankulathur", "name": "Kattankulathur", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25", "note": "Campus exists per project seed; canonical campus page URL to be confirmed." },
+    { "id": "ramapuram", "name": "Ramapuram", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25", "note": "Campus name and canonical URL to be confirmed on the official site." },
+    { "id": "vadapalani", "name": "Vadapalani", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25", "note": "Campus name and canonical URL to be confirmed on the official site." },
+    { "id": "tiruchirappalli", "name": "Tiruchirappalli", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25", "note": "Campus name and canonical URL to be confirmed on the official site." },
+    { "id": "delhi-ncr", "name": "Delhi-NCR", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25", "note": "Campus name and canonical URL to be confirmed on the official site." }
+  ],
+  "proof": [
+    { "id": "proof-nirf", "label": "NIRF ranking", "value": null, "year": null, "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "proof-naac", "label": "NAAC accreditation", "value": null, "year": null, "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "proof-intl", "label": "International rankings", "value": null, "year": null, "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" }
+  ],
+  "steps": [
+    {
+      "id": "step-choose",
+      "title": "Choose a programme",
+      "text": "Browse the programme finder and shortlist options.",
+      "fact": { "label": "Official programme finder", "value": "srmist.edu.in/program-finder", "href": "https://www.srmist.edu.in/program-finder/", "status": "verified", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25" }
+    },
+    {
+      "id": "step-eligibility",
+      "title": "Check eligibility",
+      "text": "Read the eligibility printed on the official programme page.",
+      "fact": { "label": "Eligibility", "value": null, "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25" }
+    },
+    {
+      "id": "step-fees",
+      "title": "Fees and scholarships",
+      "text": "Check fees on the programme page and scholarship details on the official scholarships page.",
+      "fact": { "label": "Scholarships (India, Engineering)", "value": "Official scholarships page", "href": "https://www.srmist.edu.in/admission-india/engineering/scholarships/", "status": "verified", "source": "https://www.srmist.edu.in/admission-india/engineering/scholarships/", "lastVerified": "2026-10-25" }
+    },
+    {
+      "id": "step-how",
+      "title": "How to apply",
+      "text": "Follow the official admissions guidance for India or international applicants.",
+      "fact": { "label": "Admissions overview", "value": "Official admissions page", "href": "https://www.srmist.edu.in/admissions/", "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25" }
+    },
+    {
+      "id": "step-apply",
+      "title": "Apply",
+      "text": "Submit your application on the official portal. International applicants use the international portal.",
+      "fact": { "label": "India application portal", "value": "applications.srmist.edu.in", "href": "https://applications.srmist.edu.in/", "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25" }
+    }
+  ]
+}

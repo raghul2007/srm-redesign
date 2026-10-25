@@ -1,0 +1,57 @@
+{
+  "_schema": "stories[]: id, title, summary, departments[], programs[] (programme ids), outcome, technologies[], mentor (string|null), results[], roster[{department, note}], howToJoin (official URL), status, source, lastVerified. Empty arrays/null mean not yet verified.",
+  "stories": [
+    {
+      "id": "team-camber-racing",
+      "title": "Team Camber Racing: National Champion at Formula Bharat 2026",
+      "summary": "SRMIST's Team Camber Racing was named National Champion at Formula Bharat 2026, with leadership across Electronics & Communication, Mechatronics and Automobile Engineering.",
+      "departments": ["Electronics & Communication Engineering", "Mechatronics Engineering", "Automobile Engineering"],
+      "programs": [],
+      "outcome": "National Champion, Formula Bharat 2026",
+      "technologies": [],
+      "mentor": null,
+      "results": ["National Champion at Formula Bharat 2026"],
+      "roster": [
+        { "department": "Electronics & Communication Engineering", "note": "Team leadership. Names to be added after verification." },
+        { "department": "Mechatronics Engineering", "note": "Team leadership. Names to be added after verification." },
+        { "department": "Automobile Engineering", "note": "Team leadership. Names to be added after verification." }
+      ],
+      "howToJoin": "https://www.srmist.edu.in/",
+      "status": "verified",
+      "source": "https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/",
+      "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "placeholder-story-1",
+      "title": "Placeholder story 1 (to be added)",
+      "summary": "Placeholder. A verified student or team story will be added here after checking the official source.",
+      "departments": [],
+      "programs": [],
+      "outcome": "Placeholder outcome",
+      "technologies": [],
+      "mentor": null,
+      "results": [],
+      "roster": [],
+      "howToJoin": "https://www.srmist.edu.in/",
+      "status": "placeholder",
+      "source": "https://www.srmist.edu.in/",
+      "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "placeholder-story-2",
+      "title": "Placeholder story 2 (to be added)",
+      "summary": "Placeholder. A verified research or innovation story will be added here after checking the official source.",
+      "departments": [],
+      "programs": [],
+      "outcome": "Placeholder outcome",
+      "technologies": [],
+      "mentor": null,
+      "results": [],
+      "roster": [],
+      "howToJoin": "https://www.srmist.edu.in/",
+      "status": "placeholder",
+      "source": "https://www.srmist.edu.in/",
+      "lastVerified": "2026-10-25"
+    }
+  ]
+}

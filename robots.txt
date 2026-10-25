@@ -1,0 +1,3 @@
+# Concept site: keep out of search indexes. Remove the Disallow line only if this becomes an approved public site.
+User-agent: *
+Disallow: /

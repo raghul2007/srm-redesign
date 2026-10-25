@@ -1,0 +1,40 @@
+{
+  "_schema": "faqs[]: id, question, answer (plain text), link {label, href}, status, source, lastVerified",
+  "faqs": [
+    {
+      "id": "faq-official",
+      "question": "Is this the official SRMIST website?",
+      "answer": "No. This is an unofficial redesign concept for the SRM Website Design Challenge. Always confirm details on the official SRMIST website.",
+      "link": { "label": "Official SRMIST website", "href": "https://www.srmist.edu.in/" },
+      "status": "verified", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "faq-apply",
+      "question": "Where do I submit my application?",
+      "answer": "Applications are made on the official portals only: applications.srmist.edu.in for India and intlapplications.srmist.edu.in for international applicants. This concept site has no application form or tracking.",
+      "link": { "label": "India application portal", "href": "https://applications.srmist.edu.in/" },
+      "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "faq-phone",
+      "question": "Which admissions phone line should I call?",
+      "answer": "Engineering, Agriculture and Architecture: +91 70 2645 2645. Liberal Arts & Business Studies, Law, Management, Medical & Allied Health and Hotel Management: +91 70 2647 2647.",
+      "link": { "label": "Contact page", "href": "contact.html" },
+      "status": "verified", "source": "https://www.srmist.edu.in/admissions/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "faq-scholarships",
+      "question": "Where can I read about scholarships?",
+      "answer": "The official scholarships page for India (Engineering) has the details. This site does not list scholarship amounts or criteria.",
+      "link": { "label": "Official scholarships page", "href": "https://www.srmist.edu.in/admission-india/engineering/scholarships/" },
+      "status": "verified", "source": "https://www.srmist.edu.in/admission-india/engineering/scholarships/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "faq-fees",
+      "question": "Where can I find fees, eligibility and intake for a programme?",
+      "answer": "Open the programme on the official programme finder and use the figures printed there. Values on this site marked placeholder are not confirmed.",
+      "link": { "label": "Official programme finder", "href": "https://www.srmist.edu.in/program-finder/" },
+      "status": "verified", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    }
+  ]
+}

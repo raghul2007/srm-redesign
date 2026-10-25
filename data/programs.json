@@ -1,0 +1,53 @@
+{
+  "_schema": "programs[]: id, name, level ('ug'|'pg'|'phd'), mode ('Regular'|'Online'|'Distance'|null), type ('Full time'|'Part time'|null), college, department (academic department or null), campus (or null), interests[], durationMonths (number|null), annualFeeInr (number|null), intake (string|null), eligibility (string|null), url, status, source, lastVerified. Null means unknown: never guess. All entries below are PLACEHOLDERS standing for a programme group, not real programmes. To fill: open https://www.srmist.edu.in/program-finder/ and copy only what is printed on each programme page.",
+  "levels": [
+    { "id": "ug", "label": "Undergraduate" },
+    { "id": "pg", "label": "Postgraduate" },
+    { "id": "phd", "label": "Doctoral (PhD)" }
+  ],
+  "modes": ["Regular", "Online", "Distance"],
+  "types": ["Full time", "Part time"],
+  "departments": [
+    { "name": "Automobile Engineering", "source": "https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/" },
+    { "name": "Electronics & Communication Engineering", "source": "https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/" },
+    { "name": "Mechatronics Engineering", "source": "https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/" }
+  ],
+  "programs": [
+    {
+      "id": "ph-ug-engineering", "name": "Undergraduate: Engineering programmes (placeholder)", "level": "ug",
+      "mode": null, "type": null, "college": "Engineering", "department": null, "campus": null,
+      "interests": ["engineering", "ai-data"], "durationMonths": null, "annualFeeInr": null, "intake": null, "eligibility": null,
+      "url": "https://www.srmist.edu.in/program-finder/", "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "ph-pg-engineering", "name": "Postgraduate: Engineering programmes (placeholder)", "level": "pg",
+      "mode": null, "type": null, "college": "Engineering", "department": null, "campus": null,
+      "interests": ["engineering", "ai-data"], "durationMonths": null, "annualFeeInr": null, "intake": null, "eligibility": null,
+      "url": "https://www.srmist.edu.in/program-finder/", "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "ph-phd-research", "name": "Doctoral research programmes (placeholder)", "level": "phd",
+      "mode": null, "type": null, "college": null, "department": null, "campus": null,
+      "interests": ["science"], "durationMonths": null, "annualFeeInr": null, "intake": null, "eligibility": null,
+      "url": "https://www.srmist.edu.in/program-finder/", "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "ph-ug-medical", "name": "Undergraduate: Medical & Allied Health programmes (placeholder)", "level": "ug",
+      "mode": null, "type": null, "college": "Medical & Allied Health", "department": null, "campus": null,
+      "interests": ["medicine-health"], "durationMonths": null, "annualFeeInr": null, "intake": null, "eligibility": null,
+      "url": "https://www.srmist.edu.in/program-finder/", "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "ph-ug-law", "name": "Law programmes (placeholder)", "level": "ug",
+      "mode": null, "type": null, "college": "Law", "department": null, "campus": null,
+      "interests": ["law"], "durationMonths": null, "annualFeeInr": null, "intake": null, "eligibility": null,
+      "url": "https://www.srmist.edu.in/program-finder/", "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "ph-pg-management", "name": "Postgraduate: Management programmes (placeholder)", "level": "pg",
+      "mode": null, "type": null, "college": "Management", "department": null, "campus": null,
+      "interests": ["management"], "durationMonths": null, "annualFeeInr": null, "intake": null, "eligibility": null,
+      "url": "https://www.srmist.edu.in/program-finder/", "status": "placeholder", "source": "https://www.srmist.edu.in/program-finder/", "lastVerified": "2026-10-25"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stories &amp; Teams | SRMIST redesign concept</title>
+<meta name="description" content="Student and team stories, filterable by department, technology and outcome. Each story shows its official source.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#09090f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Stories &amp; Teams | SRMIST redesign concept">
+<meta property="og:description" content="Verified stories from the SRMIST community.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/motion.css">
+<script>try{var d=document.documentElement,t=localStorage.getItem('theme');if(t)d.dataset.theme=t;if(localStorage.getItem('lowband')==='1')d.classList.add('low-bandwidth')}catch(e){}</script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/fx.js"></script>
+</head>
+<body data-page="stories">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header id="site-header"><noscript><nav class="container" aria-label="Main links"><ul><li><a href="index.html">Home</a></li><li><a href="programs.html">Academics</a></li><li><a href="admissions.html">Admissions</a></li><li><a href="research.html">Research &amp; Innovation</a></li><li><a href="campus.html">Campus Life</a></li><li><a href="campus.html#placements">Placements &amp; Careers</a></li><li><a href="contact.html">About</a></li></ul></nav></noscript></header>
+<main id="main" tabindex="-1">
+  <div class="container section">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Stories &amp; Teams</li></ol></nav>
+    <h1>Stories &amp; Teams</h1>
+    <p class="lede">One verified story and two placeholders. Filter by tag; stories matching any selected tag are shown.</p>
+    <section class="filters" aria-labelledby="tag-title">
+      <fieldset><legend id="tag-title">Filter by tag</legend><ul class="chip-group" id="story-tags"></ul></fieldset>
+      <div><button type="button" class="btn" id="story-clear" hidden>Clear filters</button></div>
+    </section>
+    <p id="story-count" role="status" aria-live="polite" class="h4">Loading stories</p>
+    <div class="grid" id="story-results"></div>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+</body>
+</html>

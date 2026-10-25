@@ -1,0 +1,15 @@
+{
+  "_note": "Drop real, licensed photos into images/gallery/ using these exact file names (JPG, about 1200x900). Any photo that is missing shows a labelled placeholder tile. Captions are generic on purpose; edit them to match the photo.",
+  "photos": [
+    { "file": "campus-aerial.jpg", "caption": "The campus from above" },
+    { "file": "tech-park.jpg", "caption": "SRM Tech Park" },
+    { "file": "library.jpg", "caption": "Library" },
+    { "file": "laboratory.jpg", "caption": "Laboratories" },
+    { "file": "classroom.jpg", "caption": "Classrooms" },
+    { "file": "hostel.jpg", "caption": "Hostels" },
+    { "file": "sports.jpg", "caption": "Sports" },
+    { "file": "cultural-event.jpg", "caption": "Cultural events" },
+    { "file": "convocation.jpg", "caption": "Convocation" },
+    { "file": "student-team.jpg", "caption": "Student teams" }
+  ]
+}

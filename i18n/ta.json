@@ -1,0 +1,18 @@
+{
+  "language": "ta",
+  "translationStatus": "draft",
+  "translatedOn": "2026-10-25",
+  "strings": {
+    "admissions.title": "சேர்க்கை பயணம்",
+    "admissions.intro": "இந்த ஐந்து படிகளைப் பின்பற்றவும். விண்ணப்பங்கள் அதிகாரப்பூர்வ SRMIST இணையதளங்களில் மட்டுமே செய்யப்படும்.",
+    "admissions.portals": "அதிகாரப்பூர்வ விண்ணப்ப இணையதளங்கள்",
+    "admissions.india": "இந்தியாவிலிருந்து விண்ணப்பிக்க",
+    "admissions.international": "சர்வதேச மாணவராக விண்ணப்பிக்க",
+    "admissions.faq": "பொதுவான கேள்விகள்",
+    "contact.title": "தொடர்புக்கு",
+    "contact.intro": "உங்கள் படிப்புப் பிரிவுக்கான சேர்க்கை எண்ணை அழைக்கவும்.",
+    "contact.phones": "சேர்க்கை தொலைபேசி எண்கள்",
+    "contact.campuses": "வளாகங்கள்",
+    "contact.main": "முதன்மை எண்கள்"
+  }
+}

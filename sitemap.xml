@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: replace YOUR-DOMAIN.example with the deployed Vercel domain. Pages are noindex while this is a concept. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://YOUR-DOMAIN.example/</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/programs.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/admissions.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/stories.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/research.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/campus.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/tour.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/contact.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/search.html</loc></url>
+</urlset>

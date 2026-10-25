@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Virtual campus tour | SRMIST redesign concept</title>
+<meta name="description" content="Explore SRM Tech Park in interactive 3D: a hologram view and a daylight model.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#09090f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Virtual campus tour | SRMIST redesign concept">
+<meta property="og:description" content="Admissions phone lines and campuses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/motion.css">
+<script>try{var d=document.documentElement,t=localStorage.getItem('theme');if(t)d.dataset.theme=t;if(localStorage.getItem('lowband')==='1')d.classList.add('low-bandwidth')}catch(e){}</script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/fx.js"></script>
+</head>
+<body data-page="tour">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header id="site-header"><noscript><nav class="container" aria-label="Main links"><ul><li><a href="index.html">Home</a></li><li><a href="programs.html">Academics</a></li><li><a href="admissions.html">Admissions</a></li><li><a href="research.html">Research &amp; Innovation</a></li><li><a href="campus.html">Campus Life</a></li><li><a href="campus.html#placements">Placements &amp; Careers</a></li><li><a href="contact.html">About</a></li></ul></nav></noscript></header>
+<main id="main" tabindex="-1">
+  <div class="container section">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Virtual tour</li></ol></nav>
+    <h1>Virtual campus tour</h1>
+    <p class="lede">Explore SRM Tech Park in 3D. Drag to orbit, scroll or pinch to zoom. These models run in your browser and need an internet connection the first time they load.</p>
+
+    <div class="tour-grid" style="margin-top:2rem">
+      <article class="tour-card" id="tech-park">
+        <div class="tour-stage" data-tour="tour/srm-tech-park-3d.html">
+          <div class="tour-stage__art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <button type="button" class="btn btn--primary" data-launch>Launch interactive 3D</button>
+        </div>
+        <div class="tour-body">
+          <h2>SRM Tech Park: hologram view</h2>
+          <p>A holographic rendering of the tower with ready-made views: front, left, right, entrance and aerial.</p>
+          <p class="muted"><small>The glowing hologram effect only reads on a dark stage, so this model keeps its dark scene while the rest of the site is light.</small></p>
+          <div class="tour-actions"><a class="btn" href="tour/srm-tech-park-3d.html" target="_blank" rel="noopener noreferrer">Open full screen<span class="visually-hidden"> (opens in a new tab)</span> &#8599;</a></div>
+        </div>
+      </article>
+
+      <article class="tour-card" id="tech-park-2">
+        <div class="tour-stage tour-stage--day" data-tour="tour/tech-park-2-hologram.html?mode=real">
+          <div class="tour-stage__art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <button type="button" class="btn btn--primary" data-launch>Launch interactive 3D</button>
+        </div>
+        <div class="tour-body">
+          <h2>Tech Park 2: daylight model</h2>
+          <p>Switch between hologram, see-through, blueprint and a bright realistic daylight view. It opens in daylight by default.</p>
+          <div class="tour-actions">
+            <a class="btn" href="tour/tech-park-2-hologram.html?mode=real" target="_blank" rel="noopener noreferrer">Open full screen<span class="visually-hidden"> (opens in a new tab)</span> &#8599;</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="muted" style="margin-top:1.5rem"><small>Tip: 3D models work best on a laptop or recent phone. If a model stays blank, your browser may have WebGL turned off.</small></p>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script>
+document.querySelectorAll('[data-launch]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var stage = btn.closest('[data-tour]');
+    var f = document.createElement('iframe');
+    f.src = stage.dataset.tour; f.title = 'Interactive 3D model'; f.allow = 'fullscreen';
+    stage.appendChild(f); btn.remove();
+  });
+});
+</script>
+</body>
+</html>

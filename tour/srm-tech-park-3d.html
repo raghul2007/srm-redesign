@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SRM Tech Park — Holographic Projection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#03050A;
+    --panel:rgba(6,14,22,0.62);
+    --panel-border:rgba(90,220,255,0.28);
+    --cyan:#5FE3FF;
+    --cyan-dim:#2C93A8;
+    --magenta:#FF6FD8;
+    --amber:#F2C230;
+    --text:#DFF7FF;
+    --muted:#7FA3AE;
+    box-sizing:border-box;
+  }
+  *{ box-sizing:border-box; }
+  html, body{
+    height:100%; margin:0; overflow:hidden;
+    background: var(--void);
+    font-family:'Inter', sans-serif;
+    color: var(--text);
+  }
+  #canvas-wrap{ position:fixed; inset:0; }
+  canvas{ display:block; touch-action:none; }
+
+  .scanlines{
+    position:fixed; inset:0; pointer-events:none; z-index:3; mix-blend-mode:screen;
+    background: repeating-linear-gradient(to bottom, rgba(95,227,255,0.035) 0px, rgba(95,227,255,0.035) 1px, transparent 2px, transparent 3px);
+    opacity:0.5;
+  }
+  .vignette{
+    position:fixed; inset:0; pointer-events:none; z-index:3;
+    background: radial-gradient(ellipse at 50% 55%, rgba(0,0,0,0) 45%, rgba(2,4,8,0.75) 100%);
+  }
+
+  .hud{ position:fixed; z-index:6; pointer-events:none; }
+  .hud > *{ pointer-events:auto; }
+
+  #title-card{
+    top: calc(20px + env(safe-area-inset-top, 0px));
+    left:20px;
+    max-width: 360px;
+  }
+  #title-card .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px; letter-spacing:0.16em; color: var(--cyan);
+    margin-bottom:6px; font-weight:500;
+    text-shadow: 0 0 8px rgba(95,227,255,0.7);
+  }
+  #title-card h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(22px, 4vw, 29px);
+    line-height:1.06; margin:0 0 8px 0; font-weight:700;
+    letter-spacing:-0.01em; color:#EAFDFF;
+    text-shadow: 0 0 18px rgba(95,227,255,0.35);
+  }
+  #title-card p{
+    margin:0; font-size:13px; line-height:1.55; color:var(--muted);
+  }
+
+  .panel{
+    background: var(--panel);
+    border:1px solid var(--panel-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 4px;
+    padding:16px 18px;
+    box-shadow: 0 0 24px rgba(95,227,255,0.06), inset 0 0 0 1px rgba(95,227,255,0.04);
+  }
+
+  #controls{
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    right:20px;
+    display:flex; flex-direction:column; gap:10px; align-items:flex-end;
+  }
+  .view-row{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; max-width:360px; }
+  button{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:500;
+    color:var(--cyan); background: rgba(95,227,255,0.05);
+    border:1px solid var(--panel-border); border-radius:3px;
+    padding:9px 13px; cursor:pointer; letter-spacing:0.04em;
+    transition: background .15s ease, border-color .15s ease, transform .1s ease, box-shadow .15s ease;
+    white-space:nowrap;
+  }
+  button:hover{ background: rgba(95,227,255,0.14); border-color: rgba(95,227,255,0.6); box-shadow:0 0 14px rgba(95,227,255,0.25); }
+  button:active{ transform: scale(0.96); }
+  button.primary{ background: rgba(95,227,255,0.85); color:#03242c; border-color: var(--cyan); }
+  button.primary:hover{ background: var(--cyan); }
+  button.active{ background: var(--magenta); color:#2b0620; border-color: var(--magenta); box-shadow:0 0 14px rgba(255,111,216,0.4); }
+
+  #hint{
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    left:20px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--muted);
+  }
+
+  #status{
+    top: calc(20px + env(safe-area-inset-top, 0px));
+    right:20px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px; color:var(--cyan); letter-spacing:0.08em;
+    display:flex; align-items:center; gap:8px;
+  }
+  #status .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);
+    animation: blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  #loading{
+    position:fixed; inset:0; z-index:20;
+    background: var(--void);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:16px;
+    transition: opacity .6s ease;
+  }
+  #loading .mark{
+    width:52px; height:52px; border-radius:2px;
+    border:2px solid var(--cyan);
+    box-shadow:0 0 24px rgba(95,227,255,0.6), inset 0 0 16px rgba(95,227,255,0.3);
+    animation: spin 1.3s linear infinite;
+  }
+  @keyframes spin{ 0%{ transform:rotate(0deg) scale(1);} 50%{ transform:rotate(180deg) scale(0.8);} 100%{ transform:rotate(360deg) scale(1);} }
+  #loading p{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--cyan); letter-spacing:0.12em; text-shadow:0 0 10px rgba(95,227,255,0.6); }
+
+  @media (max-width: 640px){
+    #title-card{ max-width: calc(100vw - 40px); }
+    #title-card p{ display:none; }
+    #controls{ left:20px; right:20px; align-items:center; }
+    .view-row{ justify-content:center; max-width:none; }
+    #hint{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="mark"></div>
+  <p>INITIALIZING PROJECTION…</p>
+</div>
+
+<div id="canvas-wrap"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<div class="hud panel" id="title-card">
+  <div class="eyebrow">HOLOGRAPHIC PROJECTION · LIVE</div>
+  <h1>SRM Tech Park</h1>
+  <p>A holographic rendering of the tower, projected from its real façade — orbit it in light.</p>
+</div>
+
+<div class="hud panel" id="status">
+  <span class="dot"></span> SIGNAL STABLE
+</div>
+
+<div class="hud" id="controls">
+  <div class="view-row">
+    <button data-view="front">Front</button>
+    <button data-view="left">Left side</button>
+    <button data-view="right">Right side</button>
+    <button data-view="entrance">Entrance</button>
+    <button data-view="aerial">Aerial</button>
+  </div>
+  <div class="view-row">
+    <button id="rotateBtn">Auto-rotate</button>
+    <button id="resetBtn" class="primary">Reset view</button>
+  </div>
+</div>
+
+<div class="hud panel" id="hint">
+  DRAG · ORBIT &nbsp;/&nbsp; SCROLL · ZOOM &nbsp;/&nbsp; TWO-FINGER · PAN
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var wrap = document.getElementById('canvas-wrap');
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x03050a);
+  scene.fog = new THREE.FogExp2(0x03050a, 0.0075);
+
+  var camera = new THREE.PerspectiveCamera(42, window.innerWidth/window.innerHeight, 0.1, 1000);
+  var DEFAULT_POS = new THREE.Vector3(64, 32, 84);
+  var DEFAULT_TARGET = new THREE.Vector3(0, 15, 0);
+  camera.position.copy(DEFAULT_POS);
+
+  var renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  wrap.appendChild(renderer.domElement);
+
+  var controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.target.copy(DEFAULT_TARGET);
+  controls.minDistance = 24;
+  controls.maxDistance = 170;
+  controls.maxPolarAngle = Math.PI * 0.49;
+  controls.autoRotateSpeed = 1.0;
+  controls.update();
+
+  // ---------- minimal ambient light (materials are mostly emissive) ----------
+  var ambient = new THREE.AmbientLight(0x224455, 0.6);
+  scene.add(ambient);
+  var rim = new THREE.PointLight(0x5fe3ff, 1.4, 140, 2);
+  rim.position.set(0, 40, 40);
+  scene.add(rim);
+  var rim2 = new THREE.PointLight(0xff6fd8, 0.5, 140, 2);
+  rim2.position.set(-40, 20, -30);
+  scene.add(rim2);
+
+  // ---------- canvas texture helpers ----------
+  function canvasEl(w,h){ var c=document.createElement('canvas'); c.width=w; c.height=h; return c; }
+
+  function facadeTexture(cols, rows, base, glow, label){
+    var c = canvasEl(320, 1400), ctx = c.getContext('2d');
+    ctx.fillStyle = 'rgba(0,0,0,0)'; ctx.clearRect(0,0,c.width,c.height);
+    ctx.strokeStyle = base; ctx.lineWidth = 2;
+    ctx.strokeRect(4,4,c.width-8,c.height-8);
+    var padX=20, padY=18;
+    var cw=(c.width-2*padX)/cols, ch=(c.height-2*padY)/rows;
+    for(var r=0;r<rows;r++){
+      for(var i=0;i<cols;i++){
+        var x=padX+i*cw, y=padY+r*ch;
+        ctx.strokeStyle = base;
+        ctx.globalAlpha = 0.55;
+        ctx.lineWidth = 1.4;
+        ctx.strokeRect(x+3,y+3,cw-6,ch-6);
+        if(Math.random() > 0.55){
+          ctx.fillStyle = glow;
+          ctx.globalAlpha = 0.35 + Math.random()*0.35;
+          ctx.fillRect(x+6,y+6,cw-12,ch-12);
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
+    if(label){
+      ctx.fillStyle = glow;
+      ctx.globalAlpha = 0.9;
+      ctx.font = '700 40px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.shadowColor = glow; ctx.shadowBlur = 18;
+      ctx.fillText(label, c.width/2, c.height-90);
+      ctx.font = '500 18px "IBM Plex Mono", monospace';
+      ctx.fillText('TECH PARK', c.width/2, c.height-58);
+      ctx.shadowBlur = 0;
+      ctx.globalAlpha = 1;
+    }
+    var tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    return tex;
+  }
+
+  function zigzagTexture(base, glow){
+    var c = canvasEl(160,1400), ctx = c.getContext('2d');
+    ctx.strokeStyle = base; ctx.lineWidth = 3;
+    ctx.strokeRect(3,3,c.width-6,c.height-6);
+    ctx.strokeStyle = glow;
+    ctx.lineWidth = 6;
+    ctx.shadowColor = glow; ctx.shadowBlur = 10;
+    var step=58, amp=34, cx=c.width/2;
+    ctx.beginPath();
+    for(var y=-step;y<c.height+step;y+=step){
+      ctx.moveTo(cx-amp,y);
+      ctx.lineTo(cx+amp,y+step/2);
+      ctx.lineTo(cx-amp,y+step);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    var tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    return tex;
+  }
+
+  function pinstripeTexture(glow){
+    var c = canvasEl(120,1400), ctx = c.getContext('2d');
+    ctx.strokeStyle = glow; ctx.globalAlpha=0.5; ctx.lineWidth=2;
+    ctx.strokeRect(3,3,c.width-6,c.height-6);
+    ctx.globalAlpha=1;
+    ctx.fillStyle = glow;
+    ctx.shadowColor = glow; ctx.shadowBlur = 8;
+    var n=7;
+    for(var i=0;i<n;i++){
+      var x=(c.width/n)*i+8;
+      ctx.fillRect(x,10,3,c.height-20);
+    }
+    ctx.shadowBlur = 0;
+    var tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    return tex;
+  }
+
+  // ---------- holographic material ----------
+  function holoMaterial(emissiveTex, color, opacity){
+    return new THREE.MeshStandardMaterial({
+      color: 0x03181f,
+      emissive: color,
+      emissiveMap: emissiveTex,
+      emissiveIntensity: 1.15,
+      transparent: true,
+      opacity: opacity,
+      roughness: 0.4,
+      metalness: 0.1,
+      side: THREE.DoubleSide,
+      depthWrite: false
+    });
+  }
+
+  var buildingGroup = new THREE.Group();
+  var flickerMats = [];   // materials to flicker
+  var edgeLines = [];     // wireframe overlays
+
+  function addEdges(mesh, color){
+    var eg = new THREE.EdgesGeometry(mesh.geometry, 18);
+    var lm = new THREE.LineBasicMaterial({ color:color, transparent:true, opacity:0.85 });
+    var lines = new THREE.LineSegments(eg, lm);
+    lines.position.copy(mesh.position);
+    lines.rotation.copy(mesh.rotation);
+    buildingGroup.add(lines);
+    edgeLines.push(lines);
+  }
+
+  function makeBlock(width, height, depth, mat, x, y0, edgeColor){
+    var geo = new THREE.BoxGeometry(width, height, depth);
+    var mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(x, y0 + height/2, 0);
+    buildingGroup.add(mesh);
+    flickerMats.push(mat);
+    addEdges(mesh, edgeColor);
+    return mesh;
+  }
+
+  // dimensions (matches the tower's real proportions)
+  var groundY = 0;
+  var wCenter=6.4, hCenter=33, wRed=1.5, hRed=30.5, wWhite=5.2, hWhite=30.5, wNavy=0.9, hNavy=30.5, depth=8.5;
+  var xRed = wCenter/2 + wRed/2;
+  var xWhite = wCenter/2 + wRed + wWhite/2;
+  var xNavy = wCenter/2 + wRed + wWhite + wNavy/2;
+
+  var AMBER = 0xF2C230, RED = 0xFF5D68, CYAN = 0x5FE3FF, DEEPBLUE = 0x6FA8FF;
+
+  var centerTex = facadeTexture(5, 22, 'rgba(242,194,48,0.5)', '#FFDD6B', 'SRM');
+  var redTex = zigzagTexture('rgba(255,93,104,0.5)', '#FF8A93');
+  var whiteTex = facadeTexture(6, 34, 'rgba(160,220,255,0.35)', '#BFE9FF', null);
+  var navyTex = pinstripeTexture('#9FD8FF');
+
+  var centerMat = holoMaterial(centerTex, AMBER, 0.55);
+  var redMat = holoMaterial(redTex, RED, 0.5);
+  var whiteMat = holoMaterial(whiteTex, CYAN, 0.42);
+  var navyMat = holoMaterial(navyTex, DEEPBLUE, 0.4);
+
+  makeBlock(wCenter, hCenter, depth, centerMat, 0, groundY, 0xFFDD6B);
+  makeBlock(wRed, hRed, depth*0.98, redMat, xRed, groundY, 0xFF8A93);
+  makeBlock(wRed, hRed, depth*0.98, redMat, -xRed, groundY, 0xFF8A93);
+  makeBlock(wWhite, hWhite, depth*0.94, whiteMat, xWhite, groundY, 0xBFE9FF);
+  makeBlock(wWhite, hWhite, depth*0.94, whiteMat, -xWhite, groundY, 0xBFE9FF);
+  makeBlock(wNavy, hNavy, depth*0.88, navyMat, xNavy, groundY, 0x9FD8FF);
+  makeBlock(wNavy, hNavy, depth*0.88, navyMat, -xNavy, groundY, 0x9FD8FF);
+
+  // crest
+  var crestWidth = wCenter + wRed*2 + 0.6;
+  var crestGeo = new THREE.BoxGeometry(crestWidth, 1.1, depth*0.72);
+  var crestMat = holoMaterial(null, RED, 0.6);
+  crestMat.emissiveMap = null;
+  var crest = new THREE.Mesh(crestGeo, crestMat);
+  crest.position.set(0, hCenter + 1.0, depth*0.12);
+  crest.rotation.x = -0.16;
+  buildingGroup.add(crest);
+  flickerMats.push(crestMat);
+  addEdges(crest, 0xFF8A93);
+
+  // entrance canopy + steps (thin cyan wire volumes)
+  var canopyGeo = new THREE.BoxGeometry(wCenter*0.85, 0.5, 3.2);
+  var canopyMat = holoMaterial(null, CYAN, 0.35);
+  var canopy = new THREE.Mesh(canopyGeo, canopyMat);
+  canopy.position.set(0, 5.4, depth/2 + 1.6);
+  buildingGroup.add(canopy);
+  flickerMats.push(canopyMat);
+  addEdges(canopy, 0xBFE9FF);
+
+  for(var s=0; s<6; s++){
+    var sw = wCenter + wRed*2 + 3 - s*1.3;
+    var stepGeo = new THREE.BoxGeometry(sw, 0.4, 0.9);
+    var stepMat = holoMaterial(null, CYAN, 0.28);
+    var step = new THREE.Mesh(stepGeo, stepMat);
+    step.position.set(0, 0.2 + s*0.4, depth/2 + 1.0 + s*0.9);
+    buildingGroup.add(step);
+    flickerMats.push(stepMat);
+  }
+
+  scene.add(buildingGroup);
+
+  // ---------- holographic dais / grid floor ----------
+  function gridTexture(){
+    var c = canvasEl(1024,1024), ctx = c.getContext('2d');
+    ctx.fillStyle = '#03080c'; ctx.fillRect(0,0,1024,1024);
+    ctx.strokeStyle = 'rgba(95,227,255,0.35)';
+    ctx.lineWidth = 1;
+    var step = 32;
+    for(var i=0;i<=1024;i+=step){
+      ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,1024); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(1024,i); ctx.stroke();
+    }
+    // concentric rings
+    ctx.strokeStyle = 'rgba(95,227,255,0.65)';
+    for(var r=60; r<520; r+=95){
+      ctx.lineWidth = r%190<95 ? 2.4 : 1.2;
+      ctx.beginPath(); ctx.arc(512,512,r,0,Math.PI*2); ctx.stroke();
+    }
+    var tex = new THREE.CanvasTexture(c);
+    return tex;
+  }
+  var gridTex = gridTexture();
+  var diskGeo = new THREE.CircleGeometry(70, 64);
+  var diskMat = new THREE.MeshBasicMaterial({ map: gridTex, transparent:true, opacity:0.85, depthWrite:false });
+  var disk = new THREE.Mesh(diskGeo, diskMat);
+  disk.rotation.x = -Math.PI/2;
+  disk.position.y = -0.05;
+  scene.add(disk);
+
+  // faint dark base beneath the grid for depth
+  var baseGeo = new THREE.CircleGeometry(70, 64);
+  var baseMat = new THREE.MeshBasicMaterial({ color:0x01050a, transparent:true, opacity:0.9 });
+  var baseDisk = new THREE.Mesh(baseGeo, baseMat);
+  baseDisk.rotation.x = -Math.PI/2;
+  baseDisk.position.y = -0.08;
+  scene.add(baseDisk);
+
+  // projection ring at building footprint
+  var ringGeo = new THREE.RingGeometry(9.5, 10.4, 64);
+  var ringMat = new THREE.MeshBasicMaterial({ color:0x5fe3ff, transparent:true, opacity:0.85, side:THREE.DoubleSide });
+  var ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.rotation.x = -Math.PI/2;
+  ring.position.y = 0.01;
+  scene.add(ring);
+
+  var ring2Geo = new THREE.RingGeometry(11.2, 11.6, 64);
+  var ring2 = new THREE.Mesh(ring2Geo, new THREE.MeshBasicMaterial({ color:0x5fe3ff, transparent:true, opacity:0.4, side:THREE.DoubleSide }));
+  ring2.rotation.x = -Math.PI/2;
+  ring2.position.y = 0.015;
+  scene.add(ring2);
+
+  // upward light-beam cone (projector effect)
+  function beamTexture(){
+    var c = canvasEl(64,256), ctx = c.getContext('2d');
+    var g = ctx.createLinearGradient(0,0,0,256);
+    g.addColorStop(0,'rgba(95,227,255,0.0)');
+    g.addColorStop(0.5,'rgba(95,227,255,0.16)');
+    g.addColorStop(1,'rgba(95,227,255,0.35)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,64,256);
+    return new THREE.CanvasTexture(c);
+  }
+  var beamGeo = new THREE.CylinderGeometry(11.5, 1.2, hCenter+6, 32, 1, true);
+  var beamMat = new THREE.MeshBasicMaterial({
+    map: beamTexture(), transparent:true, opacity:0.5,
+    side: THREE.DoubleSide, depthWrite:false, blending: THREE.AdditiveBlending
+  });
+  var beam = new THREE.Mesh(beamGeo, beamMat);
+  beam.position.y = (hCenter+6)/2 + 0.02;
+  scene.add(beam);
+
+  // ---------- moving scan plane through the building ----------
+  var scanGeo = new THREE.PlaneGeometry(24, 1.4);
+  var scanMat = new THREE.MeshBasicMaterial({
+    color: 0x9fe9ff, transparent:true, opacity:0.28,
+    side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite:false
+  });
+  var scanPlane = new THREE.Mesh(scanGeo, scanMat);
+  scanPlane.rotation.x = Math.PI/2;
+  scene.add(scanPlane);
+
+  // ---------- floating particles ----------
+  var particleCount = 260;
+  var particleGeo = new THREE.BufferGeometry();
+  var positions = new Float32Array(particleCount*3);
+  var speeds = new Float32Array(particleCount);
+  for(var p=0;p<particleCount;p++){
+    var ang = Math.random()*Math.PI*2;
+    var rad = 6 + Math.random()*22;
+    positions[p*3] = Math.cos(ang)*rad;
+    positions[p*3+1] = Math.random()*hCenter*1.1;
+    positions[p*3+2] = Math.sin(ang)*rad;
+    speeds[p] = 0.4 + Math.random()*1.1;
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+  var particleMat = new THREE.PointsMaterial({
+    color: 0x8fe9ff, size:0.22, transparent:true, opacity:0.75,
+    blending: THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true
+  });
+  var particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // ---------- resize ----------
+  window.addEventListener('resize', function(){
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // ---------- camera presets ----------
+  var VIEWS = {
+    front:    { pos:[0, 22, 96],  target:[0, 15, 0] },
+    left:     { pos:[-92, 24, 20], target:[0, 15, 0] },
+    right:    { pos:[92, 24, 20],  target:[0, 15, 0] },
+    entrance: { pos:[0, 9, 44],    target:[0, 10, 4] },
+    aerial:   { pos:[0.001, 155, 0.001], target:[0, 0, 0] }
+  };
+
+  function flyTo(posArr, targetArr){
+    controls.autoRotate = false;
+    document.getElementById('rotateBtn').classList.remove('active');
+    var startPos = camera.position.clone();
+    var startTarget = controls.target.clone();
+    var endPos = new THREE.Vector3(posArr[0],posArr[1],posArr[2]);
+    var endTarget = new THREE.Vector3(targetArr[0],targetArr[1],targetArr[2]);
+    var t0 = performance.now(); var dur = 900;
+    function step(now){
+      var t = Math.min(1,(now-t0)/dur);
+      var e = t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+      camera.position.lerpVectors(startPos,endPos,e);
+      controls.target.lerpVectors(startTarget,endTarget,e);
+      controls.update();
+      if(t<1){ requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('[data-view]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var v = VIEWS[btn.getAttribute('data-view')];
+      flyTo(v.pos, v.target);
+    });
+  });
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    flyTo([DEFAULT_POS.x, DEFAULT_POS.y, DEFAULT_POS.z], [DEFAULT_TARGET.x, DEFAULT_TARGET.y, DEFAULT_TARGET.z]);
+  });
+  var rotateBtn = document.getElementById('rotateBtn');
+  rotateBtn.addEventListener('click', function(){
+    controls.autoRotate = !controls.autoRotate;
+    rotateBtn.classList.toggle('active', controls.autoRotate);
+  });
+
+  // ---------- render loop ----------
+  var clock = new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    var t = clock.getElapsedTime();
+
+    // gentle flicker on holographic materials
+    flickerMats.forEach(function(m, i){
+      var base = 0.9 + 0.25*Math.sin(t*3 + i);
+      var flick = Math.random() > 0.985 ? 0.5 : 1.0;
+      m.emissiveIntensity = base * flick;
+    });
+    edgeLines.forEach(function(l, i){
+      l.material.opacity = 0.7 + 0.25*Math.sin(t*4 + i*0.7);
+    });
+
+    // scan plane sweep
+    var scanY = (Math.sin(t*0.35)*0.5+0.5) * (hCenter+4);
+    scanPlane.position.y = scanY;
+    scanMat.opacity = 0.18 + 0.14*Math.sin(t*6);
+
+    // rotating rings
+    ring.rotation.z += 0.003;
+    ring2.rotation.z -= 0.002;
+
+    // particle drift
+    var posAttr = particleGeo.attributes.position;
+    for(var p=0;p<particleCount;p++){
+      var y = posAttr.array[p*3+1] + speeds[p]*0.03;
+      if(y > hCenter*1.15) y = 0;
+      posAttr.array[p*3+1] = y;
+    }
+    posAttr.needsUpdate = true;
+
+    // subtle whole-building bob
+    buildingGroup.position.y = Math.sin(t*0.6)*0.15;
+
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      var el = document.getElementById('loading');
+      el.style.opacity = '0';
+      setTimeout(function(){ el.style.display='none'; }, 650);
+    }, 400);
+  });
+  setTimeout(function(){
+    var el = document.getElementById('loading');
+    if(el){ el.style.opacity='0'; setTimeout(function(){ el.style.display='none'; },650); }
+  }, 1300);
+
+})();
+</script>
+<a href="../tour.html" style="position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;padding:9px 16px;border-radius:999px;background:#fff;color:#0b3d91;font:600 13px system-ui,sans-serif;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.35)">&larr; Back to SRM site</a>
+</body>
+</html>

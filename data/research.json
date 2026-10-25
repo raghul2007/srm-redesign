@@ -1,0 +1,11 @@
+{
+  "_schema": "items[]: id, name, type ('Lab'|'Centre'|'Project'), interest (interest id), summary, url, status, source, lastVerified. All entries are placeholders; replace with verified labs/centres from official pages.",
+  "items": [
+    { "id": "r-ai", "name": "AI & data lab (placeholder)", "type": "Lab", "interest": "ai-data", "summary": "Official information to be added after verification.", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "r-eng", "name": "Engineering research centre (placeholder)", "type": "Centre", "interest": "engineering", "summary": "Official information to be added after verification.", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "r-med", "name": "Medicine & health research project (placeholder)", "type": "Project", "interest": "medicine-health", "summary": "Official information to be added after verification.", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "r-agri", "name": "Agriculture research lab (placeholder)", "type": "Lab", "interest": "agriculture", "summary": "Official information to be added after verification.", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "r-sci", "name": "Science research centre (placeholder)", "type": "Centre", "interest": "science", "summary": "Official information to be added after verification.", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" },
+    { "id": "r-mgmt", "name": "Management and policy project (placeholder)", "type": "Project", "interest": "management", "summary": "Official information to be added after verification.", "url": "https://www.srmist.edu.in/", "status": "placeholder", "source": "https://www.srmist.edu.in/", "lastVerified": "2026-10-25" }
+  ]
+}

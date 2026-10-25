@@ -1,0 +1,38 @@
+{
+  "_schema": "items[]: id, type ('news'|'event'), title, date (ISO date|null; null = to be confirmed), summary, url, status, source, lastVerified. Events whose date is before today are labelled Past by the page.",
+  "items": [
+    {
+      "id": "news-camber",
+      "type": "news",
+      "title": "SRMIST's Team Camber Racing claims national title at Formula Bharat 2026",
+      "date": null,
+      "summary": "Publication date to be added after verification. Read the official announcement.",
+      "url": "https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/",
+      "status": "verified",
+      "source": "https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/",
+      "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "news-placeholder",
+      "type": "news",
+      "title": "News item (placeholder)",
+      "date": null,
+      "summary": "Official information to be added after verification.",
+      "url": "https://www.srmist.edu.in/",
+      "status": "placeholder",
+      "source": "https://www.srmist.edu.in/",
+      "lastVerified": "2026-10-25"
+    },
+    {
+      "id": "event-placeholder",
+      "type": "event",
+      "title": "Event (placeholder)",
+      "date": null,
+      "summary": "Official information to be added after verification. Add the real date to enable the Past label.",
+      "url": "https://www.srmist.edu.in/",
+      "status": "placeholder",
+      "source": "https://www.srmist.edu.in/",
+      "lastVerified": "2026-10-25"
+    }
+  ]
+}

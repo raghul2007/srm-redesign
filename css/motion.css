@@ -1,0 +1,31 @@
+/* Keyframes and scroll-reveal. Everything here is switched off by prefers-reduced-motion and Low bandwidth (see base.css). */
+@property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes spin-border { to { --spin: 360deg; } }
+@keyframes float { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-30px, 40px) scale(1.12); } }
+@keyframes bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes shine { to { background-position: 250% center; } }
+@keyframes underline { 0%,100% { transform: scaleX(.25); } 50% { transform: scaleX(1); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(.9) translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+@keyframes word-in { from { opacity: 0; transform: translateY(60%) rotate(4deg); } to { opacity: 1; transform: none; } }
+
+/* Hero entrance */
+.hero h1 .w { display: inline-block; opacity: 0; animation: word-in .8s cubic-bezier(.2,.9,.3,1.2) forwards; animation-delay: calc(var(--i) * 90ms + 150ms); }
+.hero .lede, .hero .chip-group, .hero #intent-title, .hero .alert { opacity: 0; animation: rise .8s ease forwards; }
+.hero .alert { animation-delay: 0s; }
+.hero .lede { animation-delay: .7s; }
+.hero #intent-title { animation-delay: .85s; }
+.hero .chip-group { animation-delay: 1s; }
+.gradient-text { animation: shine 6s linear infinite; }
+
+/* Scroll reveal (class added by js/fx.js only when JS runs, so no-JS users still see everything) */
+.reveal { opacity: 0; transform: translateY(36px) scale(.98); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.9,.3,1.1); transition-delay: calc(var(--d, 0) * 70ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Low bandwidth turns animations off, so make sure nothing stays hidden */
+.low-bandwidth .hero h1 .w, .low-bandwidth .hero .lede, .low-bandwidth .hero .chip-group,
+.low-bandwidth .hero #intent-title, .low-bandwidth .hero .alert { opacity: 1 !important; }
+.low-bandwidth .scroll-progress, .low-bandwidth .cursor-glow, .low-bandwidth .blob, .low-bandwidth .stickers { display: none !important; }

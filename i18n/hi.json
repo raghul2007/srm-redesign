@@ -1,0 +1,18 @@
+{
+  "language": "hi",
+  "translationStatus": "draft",
+  "translatedOn": "2026-10-25",
+  "strings": {
+    "admissions.title": "प्रवेश यात्रा",
+    "admissions.intro": "इन पाँच चरणों का पालन करें। आवेदन केवल आधिकारिक SRMIST पोर्टल पर किए जाते हैं।",
+    "admissions.portals": "आधिकारिक आवेदन पोर्टल",
+    "admissions.india": "भारत से आवेदन करें",
+    "admissions.international": "अंतरराष्ट्रीय छात्र के रूप में आवेदन करें",
+    "admissions.faq": "सामान्य प्रश्न",
+    "contact.title": "संपर्क",
+    "contact.intro": "अपने कार्यक्रम समूह के लिए प्रवेश लाइन पर कॉल करें।",
+    "contact.phones": "प्रवेश फ़ोन लाइनें",
+    "contact.campuses": "परिसर",
+    "contact.main": "मुख्य नंबर"
+  }
+}

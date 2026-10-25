@@ -1,0 +1,102 @@
+/* Design tokens: light, official-college palette (navy, blue, gold). Dark mode is optional via the toggle.
+   TODO: swap for official SRM brand values if this ever ships as a real site. */
+:root {
+  color-scheme: light;
+  /* Light, official palette: white + navy + blue, with a gold highlight */
+  --color-bg: #ffffff;
+  --color-surface: #f3f6fb;
+  --color-surface-2: #e6edf8;
+  --color-text: #0f1b33;
+  --color-muted: #4a5a78;
+  --color-border: #cbd6ea;
+  --color-primary: #0b3d91;
+  --color-primary-hover: #082c6b;
+  --color-on-primary: #ffffff;
+  --color-accent: #b45309;
+  --color-link: #0b3d91;
+  --color-focus: #1d4ed8;
+  --color-warn-bg: #fff4d6;
+  --color-warn-text: #5c3b00;
+  --color-warn-border: #b36b00;
+  --color-ok-bg: #dcf5e7;
+  --color-ok-text: #0f4d27;
+  --color-info-bg: #e6f0ff;
+  --color-info-text: #0b2f6b;
+  --g1: #0b3d91;
+  --g2: #1d7fd8;
+  --g3: #f5a524;
+  --g4: #14a89a;
+  --grad: linear-gradient(110deg, var(--g1), var(--g2) 50%, var(--g4) 75%, var(--g1));
+  --grad-cool: linear-gradient(110deg, var(--g4), var(--g2) 60%, var(--g1));
+  --glass: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(11, 61, 145, 0.14);
+  --glow: rgba(29, 127, 216, 0.22);
+  --shadow-1: 0 1px 2px rgba(15, 27, 51, 0.06), 0 8px 24px rgba(11, 61, 145, 0.08);
+  --shadow-2: 0 20px 50px rgba(11, 61, 145, 0.18);
+
+  --aurora-a: 12%; --aurora-b: 9%; --aurora-c: 9%; --grain: 0.035; --blob: 0.22;
+
+  /* 8px spacing scale */
+  --space-half: 0.25rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+  --space-7: 5rem;
+
+  /* Type: Syne for display, Plus Jakarta Sans for body, Space Mono for tiny labels */
+  --font-display: "Syne", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Tamil", "Noto Sans Devanagari", Arial, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: clamp(1.75rem, 3.4vw, 2.4rem);
+  --fs-2xl: 2.5rem;
+  --fs-3xl: clamp(2.6rem, 7.5vw, 5.4rem);
+  --lh-tight: 1.05;
+  --lh-body: 1.65;
+
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 28px;
+  --tap: 2.75rem; /* 44px minimum target */
+  --container: 74rem;
+}
+
+/* Optional dark mode (off by default) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #0b1220;
+  --color-surface: #111a2e;
+  --color-surface-2: #1a2640;
+  --color-text: #eef3fc;
+  --color-muted: #aebbd3;
+  --color-border: #2b3a5c;
+  --color-primary: #7db2ff;
+  --color-primary-hover: #a9ccff;
+  --color-on-primary: #0b1220;
+  --color-accent: #ffc36b;
+  --color-link: #a9ccff;
+  --color-focus: #ffd24d;
+  --color-warn-bg: #3a2c05;
+  --color-warn-text: #ffe2a3;
+  --color-warn-border: #d9a21b;
+  --color-ok-bg: #0d3322;
+  --color-ok-text: #b8f5d0;
+  --color-info-bg: #16284d;
+  --color-info-text: #d3e3ff;
+  --g1: #5b8cff;
+  --g2: #38bdf8;
+  --g3: #fbbf24;
+  --g4: #2dd4bf;
+  --glass: rgba(20, 30, 52, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glow: rgba(91, 140, 255, 0.3);
+  --shadow-1: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --aurora-a: 30%; --aurora-b: 20%; --aurora-c: 16%; --grain: 0.07; --blob: 0.5;
+}
